@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux';
+import ThingSetter from './ThingSetter';
+import ThingToggler from './ThingToggler';
+import PropTypes from 'prop-types';
 import './App.css';
 
-function App() {
+function App(props) {
+  const { title, active } = props;
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Hello</h1>
+      <div>{`TITLE: ${title}`}</div>
+      <div>{`ACTIVE: ${active}`}</div>
+      <ThingSetter />
+      <ThingToggler />
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  title: state.title,
+  active: state.active,
+});
+
+App.propTypes = {
+  title: PropTypes.string,
+  active: PropTypes.bool,
+};
+
+export default connect(mapStateToProps)(App);
